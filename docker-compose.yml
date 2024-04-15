@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - db:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: admin
+    volumes:
+      - wp:/var/www/html
+
+volumes:
+  db:
+  wp:
+
+name: goog
